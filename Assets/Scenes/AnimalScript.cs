@@ -10,18 +10,23 @@ public class AnimalScript : MonoBehaviour
 
     Animator animator;
     Rigidbody animalRigidbody;
+    GameObject redRidingCap;
+    GameObject gameController;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         animalRigidbody = GetComponent<Rigidbody>();
+        redRidingCap = GameObject.Find("RedRidingCap");
+        gameController = GameObject.Find("GameController");
     }
 
     // Update is called once per frame
     void Update()
     {
         gameObject.transform.position -= new Vector3(0f, gameObject.transform.position.y, 0f);
+
         animalRigidbody.velocity = Vector3.zero;
         animalRigidbody.angularVelocity = Vector3.zero;
 
@@ -33,26 +38,33 @@ public class AnimalScript : MonoBehaviour
                 if (livesCount == 0)
                 {
                     gameObject.SetActive(false);
-                    SendMessage("Score");
                 }
                 else
                     Respawn();
             }
         }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, redRidingCap.transform.position, 0.1f);
+        }
     }
 
     public void Hit(int damage)
     {
-        HP -= damage;
-
-        if (HP <= 0)
+        if (!isDying)
         {
-            animator.SetInteger("State", 10);
-            isDying = true;
+            HP -= damage;
 
-            if (livesCount != 0)
+            if (HP <= 0)
             {
-                livesCount--;
+                animator.SetInteger("State", 10);
+                isDying = true;
+
+                if (livesCount != 0)
+                {
+                    livesCount--;
+                    gameController.SendMessage("IncrementWolfScore");
+                }
             }
         }
     }
