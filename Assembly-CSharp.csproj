@@ -217,7 +217,7 @@
     <Compile Include="Assets\Malbers Animations\Common\Scripts\Utilities\ValueToString.cs" />
     <Compile Include="Assets\Malbers Animations\Common\Scripts\Water\MWater.cs" />
     <Compile Include="Assets\Scenes\AnimalScript.cs" />
-    <Compile Include="Assets\Scenes\CameraTrial.cs" />
+    <Compile Include="Assets\Scenes\CameraScript.cs" />
     <Compile Include="Assets\Scenes\CharacterScript.cs" />
     <Compile Include="Assets\Scenes\FlowerScript.cs" />
     <Compile Include="Assets\Scenes\GameScript.cs" />
